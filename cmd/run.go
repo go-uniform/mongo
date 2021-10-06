@@ -13,7 +13,13 @@ func init() {
 	var rate int
 	var limit int
 	var test bool
-	// todo: add custom flag variables here
+	var uri string
+	var authSource string
+	var username string
+	var password string
+	var certFile string
+	var keyFile string
+	var verify bool
 
 	var runCmd = &cobra.Command{
 		Use:   "run",
@@ -30,7 +36,13 @@ func init() {
 				"limit": limit,
 				"test": test,
 
-				// todo: link custom flags to arg values here, example: "custom": custom,
+				"uri": uri,
+				"authSource": authSource,
+				"username": username,
+				"password": password,
+				"certFile": certFile,
+				"keyFile": keyFile,
+				"verify": verify,
 			})
 		},
 	}
@@ -40,9 +52,13 @@ func init() {
 	runCmd.Flags().IntVarP(&rate, "rate", "r", 1000, "The sample rate of the trace logs used for performance auditing [set to -1 to log every trace]")
 	runCmd.Flags().IntVarP(&limit, "limit", "x", 1000, "The messages per second that each topic worker will be limited to [set to 0 or less for maximum throughput]")
 	runCmd.Flags().BoolVar(&test, "test", false, "A flag indicating if service should enter into test mode")
-	// todo: add custom CLI flags here
-
-	// todo: add custom CLI flag validations here
+	runCmd.Flags().StringVar(&uri, "uri", "mongodb://127.0.0.1:27017", "The mongo cluster URI")
+	runCmd.Flags().StringVar(&authSource, "authSource", "admin", "")
+	runCmd.Flags().StringVar(&username, "username", "", "The mongo credentials username")
+	runCmd.Flags().StringVar(&password, "password", "", "The mongo credentials password")
+	runCmd.Flags().StringVar(&certFile, "cert", "", "The mongo TLS certificate file path")
+	runCmd.Flags().StringVar(&keyFile, "key", "", "The mongo TLS key file path")
+	runCmd.Flags().BoolVar(&verify, "verify", false, "A flag indicating if mongo certification can do host verification step")
 
 	_base.RootCmd.AddCommand(runCmd)
 }
