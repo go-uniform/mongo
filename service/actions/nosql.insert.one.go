@@ -21,6 +21,7 @@ func init() {
 
 		model.Document = events.EntityValidate(r, p, model.Document, model.Database, model.Collection)
 		events.EntityConstraints(r, p, "", model.Document, model.Database, model.Collection)
+		model.Document = events.EntityEncrypt(r, p, model.Document, model.Database, model.Collection)
 
 		result, err := info.Mongo.InsertOne(model.Database, model.Collection, model.Document)
 
