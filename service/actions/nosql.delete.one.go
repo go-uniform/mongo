@@ -3,7 +3,7 @@ package actions
 import (
 	"github.com/go-diary/diary"
 	"github.com/go-uniform/uniform"
-	"github.com/go-uniform/uniform/nosql"
+	"github.com/go-uniform/uniform/common/nosql"
 	"go.mongodb.org/mongo-driver/bson"
 	"service/service/_base"
 	"service/service/info"
@@ -41,10 +41,10 @@ func init() {
 		}
 
 		document := findOne(r, p, nosql.FindOneRequest{
-			Database: model.Database,
+			Database:   model.Database,
 			Collection: model.Collection,
 			Query: bson.D{
-				{ "_id", identifier },
+				{"_id", identifier},
 			},
 		})
 

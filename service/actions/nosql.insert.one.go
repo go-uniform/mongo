@@ -3,7 +3,7 @@ package actions
 import (
 	"github.com/go-diary/diary"
 	"github.com/go-uniform/uniform"
-	"github.com/go-uniform/uniform/nosql"
+	"github.com/go-uniform/uniform/common/nosql"
 	"go.mongodb.org/mongo-driver/bson"
 	"service/service/_base"
 	"service/service/events"
@@ -13,9 +13,9 @@ import (
 func init() {
 	_base.Subscribe(_base.TargetAction("nosql", "insert.one"), func(r uniform.IRequest, p diary.IPage) {
 		var model struct {
-			Database string
+			Database   string
 			Collection string
-			Document bson.M
+			Document   bson.M
 		}
 		r.Read(&model)
 
@@ -30,10 +30,10 @@ func init() {
 		}
 
 		document := findOne(r, p, nosql.FindOneRequest{
-			Database: model.Database,
+			Database:   model.Database,
 			Collection: model.Collection,
 			Query: bson.D{
-				{ "_id", result.InsertedID },
+				{"_id", result.InsertedID},
 			},
 		})
 
