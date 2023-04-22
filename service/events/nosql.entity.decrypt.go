@@ -9,11 +9,12 @@ import (
 )
 
 func EntityDecrypt(r uniform.IRequest, p diary.IPage, document bson.M, database, collection string) (model bson.M) {
+	return document
 	if err := p.Scope("decrypt", func(p diary.IPage) {
 		if err := r.Conn().Request(p, _base.TargetEvent("entity", fmt.Sprintf("%s.decrypt", database)), r.Remainder(), uniform.Request{
 			Parameters: uniform.P{
-				"source": "mongodb",
-				"database": database,
+				"source":     "mongodb",
+				"database":   database,
 				"collection": collection,
 			},
 			Model: document,
